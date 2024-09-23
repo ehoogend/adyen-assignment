@@ -50,4 +50,28 @@ class ChangeTest {
             .add(Bill.ONE_HUNDRED_EURO, 1)
         assertNotEquals(expected, actual)
     }
+
+    @Test
+    fun testPlusOperator(){
+        val change1 = Change()
+            .add(Coin.TWO_EURO, 4)
+            .add(Bill.ONE_HUNDRED_EURO, 1)
+            .add(Coin.FIFTY_CENT, 3)
+            .add(Coin.TWENTY_CENT, 2)
+        val change2 = Change()
+            .add(Coin.TWO_EURO, 3)
+            .add(Coin.TWENTY_CENT, 1)
+            .add(Coin.FIFTY_CENT, 2)
+            .add(Bill.ONE_HUNDRED_EURO, 1)
+
+        val expected = Change()
+            .add(Coin.TWO_EURO, 7)
+            .add(Bill.ONE_HUNDRED_EURO, 2)
+            .add(Coin.FIFTY_CENT, 5)
+            .add(Coin.TWENTY_CENT, 3)
+
+        val actual = change1 + change2
+
+        assertEquals(expected, actual)
+    }
 }
