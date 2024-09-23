@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    // Splashscreen https://developer.android.com/reference/kotlin/androidx/core/splashscreen/SplashScreen
+    implementation(libs.androidx.core.splashscreen)
+
     implementation (libs.retrofit)
     implementation (libs.converter.moshi)
 
