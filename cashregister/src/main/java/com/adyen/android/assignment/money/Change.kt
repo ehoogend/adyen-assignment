@@ -4,9 +4,9 @@ import java.util.TreeMap
 
 class Change {
     private val map by lazy {
-        TreeMap<MonetaryElement, Int>(Comparator { lhs, rhs ->
+        TreeMap<MonetaryElement, Int> { lhs, rhs ->
             lhs.minorValue.compareTo(rhs.minorValue)
-        })
+        }
     }
 
     var total: Long = 0
@@ -26,6 +26,21 @@ class Change {
 
     fun remove(element: MonetaryElement, count: Int): Change {
         return modify(element, -count)
+    }
+
+    /**
+     * Creates a new [Change] object that contains this object's elements as well as the provided [change] parameter's elements.
+     * @param change The [Change] object to add to this object.
+     */
+    operator fun plus(otherChange: Change): Change {
+        val newChange = Change.none()
+        getElements().forEach { element ->
+            newChange.add(element, getCount(element))
+        }
+        otherChange.getElements().forEach { element ->
+            newChange.add(element, otherChange.getCount(element))
+        }
+        return newChange
     }
 
     private fun modify(element: MonetaryElement, count: Int): Change {
@@ -59,8 +74,8 @@ class Change {
     companion object {
         fun max(): Change {
             val change = Change()
-            Bill.values().forEach { change.add(it, Int.MAX_VALUE) }
-            Coin.values().forEach { change.add(it, Int.MAX_VALUE) }
+            Bill.entries.forEach { change.add(it, Int.MAX_VALUE) }
+            Coin.entries.forEach { change.add(it, Int.MAX_VALUE) }
             return change
         }
 
