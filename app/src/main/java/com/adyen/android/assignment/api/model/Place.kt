@@ -10,4 +10,4 @@ data class Place(
     val location: Location,
     val name: String,
     val timezone: String,
-)
+): java.io.Serializable
