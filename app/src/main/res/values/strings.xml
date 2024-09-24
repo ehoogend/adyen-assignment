@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Erik\'s Assignment</string>
+    <string name="nearby_places_title">Nearby places</string>
+    <string name="warning_icon">Warning icon</string>
+
+    <string name="error_header">Something went wrong</string>
+    <string name="error_message">An error occurred. Please try again later.</string>
+
+    <string name="empty_header">Nothing here?</string>
+    <string name="empty_message">No nearby places found.</string>
+
+    <string name="retry">Retry</string>
+    <string name="search_again">Search again</string>
+    <string name="distance_format">%d meters</string>
 </resources>
