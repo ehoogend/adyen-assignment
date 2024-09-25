@@ -88,6 +88,13 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
+
+    // Location
+    implementation(libs.play.services.location)
+
+    // Kotlinx Coroutines
+    implementation(libs.kotlinx.coroutines.play.services)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
