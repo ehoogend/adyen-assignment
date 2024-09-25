@@ -19,7 +19,11 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "FOURSQUARE_BASE_URL", "\"https://api.foursquare.com/v3/\"")
-        buildConfigField("String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\"")
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"fsq39jLVDZyhcT82WkABSDJeloBSsSWmy0OJYz3JWhIP4TY=\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -30,7 +34,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -39,6 +46,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += listOf(
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=com.google.accompanist.permissions.ExperimentalPermissionsApi",
+        )
+
     }
     buildFeatures {
         compose = true
@@ -88,6 +100,8 @@ dependencies {
     implementation(libs.coil)
     implementation(libs.coil.compose)
 
+    // Permissions
+    implementation(libs.accompanist.permissions)
 
     // Location
     implementation(libs.play.services.location)
