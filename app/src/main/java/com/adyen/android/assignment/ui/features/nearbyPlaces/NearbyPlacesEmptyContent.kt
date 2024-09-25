@@ -4,11 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,9 +23,12 @@ import com.adyen.android.assignment.R
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
-fun NearbyPlacesEmptyContent(onClickRetry: () -> Unit) {
+fun NearbyPlacesEmptyContent(
+    modifier: Modifier = Modifier,
+    onClickRetry: () -> Unit
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -51,9 +56,11 @@ fun NearbyPlacesEmptyContent(onClickRetry: () -> Unit) {
 @Composable
 private fun NearbyPlacesEmptyPreview() {
     AppTheme {
-        NearbyPlacesScreen(
-            placesUIState = PlacesUIState.Empty,
-            onClickRetry = {},
-            onClickPlace = {})
+        Scaffold {
+            NearbyPlacesEmptyContent(
+                modifier = Modifier.padding(it),
+                onClickRetry = {}
+            )
+        }
     }
 }

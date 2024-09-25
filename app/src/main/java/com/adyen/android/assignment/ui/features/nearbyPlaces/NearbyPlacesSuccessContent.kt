@@ -4,9 +4,11 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -16,10 +18,14 @@ import com.adyen.android.assignment.api.model.Place
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
-fun NearbyPlacesSuccessContent(places: List<Place>, onClickPlace: (Place) -> Unit) {
+fun NearbyPlacesSuccessContent(
+    places: List<Place>,
+    onClickPlace: (Place) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val configuration = LocalConfiguration.current
     LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         columns = GridCells.Fixed(
@@ -43,9 +49,12 @@ fun NearbyPlacesSuccessContent(places: List<Place>, onClickPlace: (Place) -> Uni
 @Composable
 private fun NearbyPlacesSuccessPreview() {
     AppTheme {
-        NearbyPlacesScreen(
-            placesUIState = PlacesUIState.Success(listOf()),
-            onClickRetry = {},
-            onClickPlace = {})
+        Scaffold {
+            NearbyPlacesSuccessContent(
+                modifier = Modifier.padding(it),
+                places = listOf(),
+                onClickPlace = {}
+            )
+        }
     }
 }

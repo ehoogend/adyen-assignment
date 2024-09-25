@@ -3,12 +3,14 @@ package com.adyen.android.assignment.ui.features.nearbyPlaces
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,10 +23,11 @@ import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
 fun NearbyPlacesErrorContent(
+    modifier: Modifier = Modifier,
     onClickRetry: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -52,9 +55,11 @@ fun NearbyPlacesErrorContent(
 @Composable
 private fun NearbyPlacesErrorPreview() {
     AppTheme {
-        NearbyPlacesScreen(
-            placesUIState = PlacesUIState.Error(IllegalStateException()),
-            onClickRetry = {},
-            onClickPlace = {})
+        Scaffold {
+            NearbyPlacesErrorContent(
+                modifier = Modifier.padding(it),
+                onClickRetry = {}
+            )
+        }
     }
 }
