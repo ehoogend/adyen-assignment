@@ -12,4 +12,6 @@
     <string name="retry">Retry</string>
     <string name="search_again">Search again</string>
     <string name="distance_format">%d meters</string>
+    <string name="place_photo_content_description">Photo of %1$s</string>
+    <string name="placeholder_photo">Placeholder photo</string>
 </resources>
