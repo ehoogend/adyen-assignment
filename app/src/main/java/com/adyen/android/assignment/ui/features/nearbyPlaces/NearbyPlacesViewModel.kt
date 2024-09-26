@@ -35,7 +35,7 @@ class NearbyPlacesViewModel @Inject constructor(
                 if (hasLocationPermission) {
                     emitAll(
                         locationRepository.locationFlow.map {
-                            placesRepository.getRecommendedPlaces(it)
+                            placesRepository.getRecommendedPlaces(it).sortedBy { it.distance }
                         }
                     )
                 } else {

@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,17 +24,17 @@ fun NearbyPlacesSuccessContent(
     modifier: Modifier = Modifier
 ) {
     val configuration = LocalConfiguration.current
-    LazyVerticalGrid(
+    LazyVerticalStaggeredGrid(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        columns = GridCells.Fixed(
+        columns = StaggeredGridCells.Fixed(
             when (configuration.orientation) {
-                Configuration.ORIENTATION_LANDSCAPE -> 2
-                else -> 1
+                Configuration.ORIENTATION_LANDSCAPE -> 3
+                else -> 2
             }
         ),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalItemSpacing = 12.dp,
     ) {
         items(places, key = { place -> place.fsqId }) { place ->
             NearbyPlaceItem(
