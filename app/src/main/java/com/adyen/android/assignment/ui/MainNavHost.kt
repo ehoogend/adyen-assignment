@@ -42,6 +42,9 @@ fun MainNavHost(
             ) { backstackEntry ->
                 val nearbyPlaceDetail: Screen.NearbyPlaceDetail = backstackEntry.toRoute()
                 NearbyPlaceDetailRoute(
+                    onNavigateUp = {
+                        navController.navigateUp()
+                    },
                     place = nearbyPlaceDetail.place,
                     sharedTransitionScope = this@SharedTransitionLayout,
                     animatedContentScope = this@composable,

@@ -20,4 +20,8 @@
     <string name="settings_permission_text">Allow location access from settings to see nearby places.</string>
     <string name="settings_permission_button">Settings</string>
     <string name="search_icon">Search icon</string>
+    <string name="navigate_up_icon">Navigate up icon</string>
+    <string name="place_icon">Place icon</string>
+    <string name="kms_format">%.1f km</string>
+    <string name="location_icon">Location icon</string>
 </resources>
