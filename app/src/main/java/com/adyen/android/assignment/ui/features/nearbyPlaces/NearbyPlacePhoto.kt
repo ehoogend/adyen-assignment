@@ -1,7 +1,5 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces
 
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,17 +22,12 @@ import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Place
 
 @Composable
-fun SharedTransitionScope.NearbyPlacePhoto(
+fun NearbyPlacePhoto(
     place: Place,
     modifier: Modifier = Modifier,
-    animatedContentScope: AnimatedContentScope,
 ) {
     Box(
         modifier = modifier
-            .sharedElement(
-                rememberSharedContentState(key = "photo-${place.fsqId}"),
-                animatedVisibilityScope = animatedContentScope
-            )
             .clip(MaterialTheme.shapes.medium),
     ) {
         val photo = remember { place.photos?.firstOrNull() }

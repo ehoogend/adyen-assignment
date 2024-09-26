@@ -16,16 +16,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Category
 import com.adyen.android.assignment.api.model.Geocode
 import com.adyen.android.assignment.api.model.Geocodes
 import com.adyen.android.assignment.api.model.Location
 import com.adyen.android.assignment.api.model.Photo
 import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.ui.features.nearbyPlaces.component.DistanceComponent
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
@@ -42,8 +41,11 @@ fun NearbyPlaceItem(
     ) {
         with(sharedTransitionScope) {
             NearbyPlacePhoto(
+                modifier = Modifier.sharedElement(
+                    rememberSharedContentState(key = "photo-${place.fsqId}"),
+                    animatedVisibilityScope = animatedContentScope
+                ),
                 place = place,
-                animatedContentScope = animatedContentScope,
             )
             Column(
                 modifier = Modifier
@@ -52,17 +54,21 @@ fun NearbyPlaceItem(
             ) {
                 Text(
                     modifier = Modifier.sharedElement(
-                        sharedTransitionScope.rememberSharedContentState(key = "name-${place.fsqId}"),
+                        rememberSharedContentState(key = "name-${place.fsqId}"),
                         animatedVisibilityScope = animatedContentScope
                     ),
                     text = place.name,
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    modifier = Modifier.align(Alignment.End),
-                    text = stringResource(R.string.distance_format, place.distance),
-                    style = MaterialTheme.typography.bodySmall,
+                DistanceComponent(
+                    modifier = Modifier
+                        .sharedElement(
+                            rememberSharedContentState(key = "distance-${place.fsqId}"),
+                            animatedVisibilityScope = animatedContentScope
+                        )
+                        .align(Alignment.End),
+                    distance = place.distance
                 )
             }
         }
