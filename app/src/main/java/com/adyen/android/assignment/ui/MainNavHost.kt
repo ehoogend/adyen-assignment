@@ -1,5 +1,7 @@
 package com.adyen.android.assignment.ui
 
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -49,17 +51,21 @@ private sealed class Screen {
     data class NearbyPlaceDetail(val place: Place) : Screen()
 }
 
-private val PlaceType = object : NavType<Place>(isNullableAllowed = false) {
-    override fun get(bundle: Bundle, key: String): Place? {
-        return bundle.getString(key)?.let { Json.decodeFromString<Place>(it) }
-    }
+private val PlaceType = object : NavType<Place>(isNullableAllowed = true) {
+    override fun get(bundle: Bundle, key: String): Place? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            bundle.getSerializable(key, Place::class.java)
+        } else {
+            @Suppress("DEPRECATION") // for backwards compatibility
+            bundle.getSerializable(key) as? Place
+        }
 
     override fun parseValue(value: String): Place {
-        return Json.decodeFromString<Place>(value)
+        return Json.decodeFromString<Place>(Uri.decode(value))
     }
 
     override fun serializeAsValue(value: Place): String {
-        return Json.encodeToString(value)
+        return Uri.encode(Json.encodeToString(value))
     }
 
     override fun put(bundle: Bundle, key: String, value: Place) {

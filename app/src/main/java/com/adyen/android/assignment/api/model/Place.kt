@@ -15,5 +15,4 @@ data class Place(
     val timezone: String,
     val description: String? = null,
     val photos: List<Photo>?,
-): java.io.Serializable
-
+) : java.io.Serializable

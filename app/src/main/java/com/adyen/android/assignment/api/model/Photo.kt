@@ -9,4 +9,4 @@ data class Photo(
     val suffix: String,
     val width: Int? = null,
     val height: Int? = null,
-)
+) : java.io.Serializable

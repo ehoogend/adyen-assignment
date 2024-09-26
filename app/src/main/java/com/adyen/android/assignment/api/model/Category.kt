@@ -7,4 +7,4 @@ data class Category(
     val icon: Photo,
     val id: Int,
     val name: String,
-)
+) : java.io.Serializable

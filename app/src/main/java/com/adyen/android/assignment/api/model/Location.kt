@@ -10,4 +10,4 @@ data class Location(
     val neighborhood: List<String>? = null,
     val postcode: String? = null,
     val region: String? = null,
-)
+) : java.io.Serializable
