@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -31,6 +32,7 @@ class NearbyPlacesViewModel @Inject constructor(
 
     val uiState: StateFlow<PlacesUIState> =
         refreshWithLocationPermissionTrigger
+            .distinctUntilChanged()
             .transformLatest { hasLocationPermission ->
                 if (hasLocationPermission) {
                     emitAll(
@@ -54,7 +56,7 @@ class NearbyPlacesViewModel @Inject constructor(
                 emit(PlacesUIState.Error(it))
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PlacesUIState.Loading)
 
-    fun refresh(withLocationPermission: Boolean) {
+    fun updateLocationPermissionState(withLocationPermission: Boolean) {
         refreshWithLocationPermissionTrigger.tryEmit(withLocationPermission)
     }
 }

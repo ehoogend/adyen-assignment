@@ -3,6 +3,7 @@ package com.adyen.android.assignment.ui
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -22,22 +23,30 @@ import kotlin.reflect.typeOf
 fun MainNavHost(
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(
-        navController,
-        startDestination = Screen.NearbyPlaces
-    ) {
-        composable<Screen.NearbyPlaces> {
-            NearbyPlacesRoute(
-                onClickPlace = { place ->
-                    navController.navigate(Screen.NearbyPlaceDetail(place))
-                }
-            )
-        }
-        composable<Screen.NearbyPlaceDetail>(
-            typeMap = mapOf(typeOf<Place>() to PlaceType)
-        ) { backstackEntry ->
-            val nearbyPlaceDetail: Screen.NearbyPlaceDetail = backstackEntry.toRoute()
-            NearbyPlaceDetailRoute(nearbyPlaceDetail.place)
+    SharedTransitionLayout {
+        NavHost(
+            navController,
+            startDestination = Screen.NearbyPlaces
+        ) {
+            composable<Screen.NearbyPlaces> {
+                NearbyPlacesRoute(
+                    onClickPlace = { place ->
+                        navController.navigate(Screen.NearbyPlaceDetail(place))
+                    },
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable,
+                )
+            }
+            composable<Screen.NearbyPlaceDetail>(
+                typeMap = mapOf(typeOf<Place>() to PlaceType)
+            ) { backstackEntry ->
+                val nearbyPlaceDetail: Screen.NearbyPlaceDetail = backstackEntry.toRoute()
+                NearbyPlaceDetailRoute(
+                    place = nearbyPlaceDetail.place,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@composable,
+                )
+            }
         }
     }
 }

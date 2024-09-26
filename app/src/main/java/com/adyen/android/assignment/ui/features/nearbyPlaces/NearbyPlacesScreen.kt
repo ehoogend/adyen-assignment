@@ -2,6 +2,8 @@ package com.adyen.android.assignment.ui.features.nearbyPlaces
 
 import android.Manifest
 import android.content.Context
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,7 +35,9 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @Composable
 fun NearbyPlacesRoute(
     viewModel: NearbyPlacesViewModel = hiltViewModel(),
-    onClickPlace: (Place) -> Unit
+    onClickPlace: (Place) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
@@ -50,12 +54,14 @@ fun NearbyPlacesRoute(
 
     NearbyPlacesScreen(
         placesUIState = viewModel.uiState.collectAsState().value,
-        onClickRetry = { viewModel.refresh(hasLocationPermission.value) },
+        onClickRetry = { viewModel.updateLocationPermissionState(hasLocationPermission.value) },
         onClickPlace = onClickPlace,
         locationPermissionsState = locationPermissionsState,
+        sharedTransitionScope = sharedTransitionScope,
+        animatedContentScope = animatedContentScope,
     )
     LaunchedEffect(hasLocationPermission.value) {
-        viewModel.refresh(hasLocationPermission.value)
+        viewModel.updateLocationPermissionState(hasLocationPermission.value)
     }
 }
 
@@ -65,6 +71,8 @@ fun NearbyPlacesScreen(
     onClickRetry: () -> Unit,
     onClickPlace: (Place) -> Unit,
     locationPermissionsState: MultiplePermissionsState,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     FineLocationPermissionSnackbarContent(
@@ -92,7 +100,9 @@ fun NearbyPlacesScreen(
 
                     is PlacesUIState.Success -> NearbyPlacesSuccessContent(
                         placesUIState.places,
-                        onClickPlace = onClickPlace
+                        onClickPlace = onClickPlace,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope,
                     )
 
                     is PlacesUIState.Error -> NearbyPlacesErrorContent(onClickRetry = onClickRetry)

@@ -1,6 +1,10 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +25,9 @@ import com.adyen.android.assignment.ui.theme.AppTheme
 fun NearbyPlacesSuccessContent(
     places: List<Place>,
     onClickPlace: (Place) -> Unit,
-    modifier: Modifier = Modifier
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
+    modifier: Modifier = Modifier,
 ) {
     val configuration = LocalConfiguration.current
     LazyVerticalStaggeredGrid(
@@ -39,7 +45,9 @@ fun NearbyPlacesSuccessContent(
         items(places, key = { place -> place.fsqId }) { place ->
             NearbyPlaceItem(
                 place = place,
-                onClick = { onClickPlace(place) }
+                onClick = { onClickPlace(place) },
+                sharedTransitionScope = sharedTransitionScope,
+                animatedContentScope = animatedContentScope
             )
         }
     }
@@ -49,12 +57,21 @@ fun NearbyPlacesSuccessContent(
 @Composable
 private fun NearbyPlacesSuccessPreview() {
     AppTheme {
-        Scaffold {
-            NearbyPlacesSuccessContent(
-                modifier = Modifier.padding(it),
-                places = listOf(),
-                onClickPlace = {}
-            )
+        SharedTransitionLayout {
+            AnimatedContent(
+                contentKey = { "content" },
+                targetState = Unit,
+            ) { _ ->
+                Scaffold {
+                    NearbyPlacesSuccessContent(
+                        modifier = Modifier.padding(it),
+                        places = listOf(),
+                        sharedTransitionScope = this@SharedTransitionLayout,
+                        animatedContentScope = this@AnimatedContent,
+                        onClickPlace = {}
+                    )
+                }
+            }
         }
     }
 }
