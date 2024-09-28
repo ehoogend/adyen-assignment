@@ -25,4 +25,14 @@
     <string name="kms_format">%.1f km</string>
     <string name="location_icon">Location icon</string>
     <string name="rating_format">%.1f/10</string>
+    <string name="very_likely_open">Open</string>
+    <string name="likely_open">Likely open</string>
+    <string name="likely_closed">Likely closed</string>
+    <string name="very_likely_closed">Closed</string>
+    <string name="unsure">Unknown</string>
+    <string name="price_cheap">Cheap</string>
+    <string name="price_moderate">Moderate</string>
+    <string name="price_expensive">Expensive</string>
+    <string name="price_very_expensive">Very Expensive</string>
+    <string name="price_icon_content_description">Price icon</string>
 </resources>

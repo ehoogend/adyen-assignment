@@ -15,6 +15,9 @@ data class Place(
     val rating: Float? = null,
     val description: String? = null,
     val photos: List<Photo>?,
+    @SerialName("closed_bucket")
+    val closedBucket: ClosedBucket,
+    val price: Int? = null,
 ) : java.io.Serializable {
     companion object {
         val preview: Place = Place(
@@ -43,7 +46,9 @@ data class Place(
             ),
             description = "Place description 1",
             rating = 4.5f,
-            photos = null
+            photos = null,
+            closedBucket = ClosedBucket.LikelyOpen,
+            price = 2,
         )
     }
 }
