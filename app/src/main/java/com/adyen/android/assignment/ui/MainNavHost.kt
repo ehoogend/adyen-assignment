@@ -63,6 +63,11 @@ private sealed class Screen {
     data class NearbyPlaceDetail(val place: Place) : Screen()
 }
 
+/**
+ * Custom [PlaceType] ensures that [Place] is properly serialized and deserialized.
+ * Most importantly, serialized Json strings characters are URI-encoded to ensure compatibility with
+ * androidx navigation urls used for compatibility with deep links.
+ */
 private val PlaceType = object : NavType<Place>(isNullableAllowed = true) {
     override fun get(bundle: Bundle, key: String): Place? =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
