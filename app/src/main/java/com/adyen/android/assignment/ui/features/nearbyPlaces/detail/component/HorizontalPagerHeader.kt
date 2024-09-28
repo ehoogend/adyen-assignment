@@ -41,10 +41,13 @@ fun HorizontalPagerHeader(
     place: Place,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
+    modifier: Modifier = Modifier,
 ) {
     place.photos?.let { photos ->
         with(sharedTransitionScope) {
-            Box {
+            Box(
+                modifier = modifier,
+            ) {
                 val pagerState: PagerState = rememberPagerState(
                     pageCount = { photos.size }
                 )
@@ -54,7 +57,12 @@ fun HorizontalPagerHeader(
                             rememberSharedContentState(key = "photo-${place.fsqId}"),
                             animatedVisibilityScope = animatedContentScope
                         )
-                        .clip(MaterialTheme.shapes.medium.copy(topStart = ZeroCornerSize, topEnd = ZeroCornerSize)),
+                        .clip(
+                            MaterialTheme.shapes.medium.copy(
+                                topStart = ZeroCornerSize,
+                                topEnd = ZeroCornerSize
+                            )
+                        ),
                     state = pagerState,
                     beyondViewportPageCount = 1,
                 ) { page ->

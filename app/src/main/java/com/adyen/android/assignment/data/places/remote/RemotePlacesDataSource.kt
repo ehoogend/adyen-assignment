@@ -6,7 +6,6 @@ import com.adyen.android.assignment.api.VenueRecommendationsQueryBuilder
 import com.adyen.android.assignment.api.model.Place
 import javax.inject.Inject
 
-
 class RemotePlacesDataSource @Inject constructor(private val placesService: PlacesService) {
 
     suspend fun getRecommendedPlaces(location: Location?): List<Place> {

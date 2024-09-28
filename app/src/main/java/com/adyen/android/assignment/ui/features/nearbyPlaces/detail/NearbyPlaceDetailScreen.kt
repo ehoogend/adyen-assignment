@@ -168,8 +168,8 @@ private fun DetailScreenContent(
                     )
                     .align(Alignment.CenterHorizontally)
             )
-            HorizontalDivider(Modifier.padding(vertical = 8.dp))
             place.categories.takeIf { it.isNotEmpty() }?.let { categories ->
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
                 CategoriesBlock(
                     modifier = Modifier.sharedElement(
                         sharedTransitionScope.rememberSharedContentState(key = "categories-${place.fsqId}"),
@@ -182,8 +182,10 @@ private fun DetailScreenContent(
                 Spacer(modifier = Modifier.padding(4.dp))
                 DescriptionBlock(it)
             }
-            HorizontalDivider(Modifier.padding(vertical = 8.dp))
-            ContactInfoBlock(place)
+            if (place.hasContactInfo) {
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                ContactInfoBlock(place)
+            }
         }
     }
 }

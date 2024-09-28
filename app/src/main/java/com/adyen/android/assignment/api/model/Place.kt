@@ -22,6 +22,9 @@ data class Place(
     val email: String? = null,
     val price: Int? = null,
 ) : java.io.Serializable {
+
+    val hasContactInfo = tel != null || website != null || email != null
+
     companion object {
         val preview: Place = Place(
             fsqId = "1",
