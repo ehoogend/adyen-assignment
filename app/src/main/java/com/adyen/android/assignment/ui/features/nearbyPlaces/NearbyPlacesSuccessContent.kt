@@ -1,6 +1,6 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces
 
-import android.content.res.Configuration
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.SharedTransitionLayout
@@ -15,16 +15,17 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.api.model.Place
 import com.adyen.android.assignment.ui.features.nearbyPlaces.component.NearbyPlaceItem
 import com.adyen.android.assignment.ui.theme.AppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun NearbyPlacesSuccessContent(
-    places: List<Place>,
+    places: ImmutableList<Place>,
     onClickPlace: (Place) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
@@ -50,6 +51,7 @@ fun NearbyPlacesSuccessContent(
 
 @Preview
 @Composable
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
 private fun NearbyPlacesSuccessPreview() {
     AppTheme {
         SharedTransitionLayout {
@@ -60,7 +62,7 @@ private fun NearbyPlacesSuccessPreview() {
                 Scaffold {
                     NearbyPlacesSuccessContent(
                         modifier = Modifier.padding(it),
-                        places = listOf(),
+                        places = persistentListOf(),
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedContentScope = this@AnimatedContent,
                         onClickPlace = {}

@@ -109,7 +109,8 @@ dependencies {
     // Location
     implementation(libs.play.services.location)
 
-    // Kotlinx Coroutines
+    // Kotlinx
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.kotlinx.coroutines.play.services)
 
     testImplementation(libs.junit)

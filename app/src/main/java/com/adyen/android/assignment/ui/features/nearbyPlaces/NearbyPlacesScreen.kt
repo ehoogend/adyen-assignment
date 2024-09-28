@@ -34,10 +34,10 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @Composable
 fun NearbyPlacesRoute(
-    viewModel: NearbyPlacesViewModel = hiltViewModel(),
     onClickPlace: (Place) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
-    animatedContentScope: AnimatedContentScope
+    animatedContentScope: AnimatedContentScope,
+    viewModel: NearbyPlacesViewModel = hiltViewModel(),
 ) {
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
@@ -66,7 +66,7 @@ fun NearbyPlacesRoute(
 }
 
 @Composable
-fun NearbyPlacesScreen(
+private fun NearbyPlacesScreen(
     placesUIState: PlacesUIState,
     onClickRetry: () -> Unit,
     onClickPlace: (Place) -> Unit,
@@ -123,8 +123,8 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-                locationPermissionsState.shouldShowRationale &&
-                locationPermissionsState.permissions.any { it.status.isGranted }
+            locationPermissionsState.shouldShowRationale &&
+            locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
         LaunchedEffect(snackbarHostState) {

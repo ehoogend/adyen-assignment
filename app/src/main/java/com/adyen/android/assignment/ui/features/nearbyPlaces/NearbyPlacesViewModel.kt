@@ -6,6 +6,8 @@ import com.adyen.android.assignment.api.model.Place
 import com.adyen.android.assignment.data.repository.LocationRepository
 import com.adyen.android.assignment.data.repository.PlacesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -49,7 +51,7 @@ class NearbyPlacesViewModel @Inject constructor(
                 } else if (places.isEmpty()) {
                     PlacesUIState.Empty
                 } else {
-                    PlacesUIState.Success(places)
+                    PlacesUIState.Success(places.toImmutableList())
                 }
             }.catch {
                 Timber.e(it)
@@ -62,7 +64,7 @@ class NearbyPlacesViewModel @Inject constructor(
 }
 
 sealed class PlacesUIState {
-    data class Success(val places: List<Place>) : PlacesUIState()
+    data class Success(val places: ImmutableList<Place>) : PlacesUIState()
     data object Empty : PlacesUIState()
     data object NoPermission : PlacesUIState()
     data class Error(val exception: Throwable) : PlacesUIState()
