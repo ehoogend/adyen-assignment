@@ -14,7 +14,7 @@ import com.adyen.android.assignment.api.model.Category
 @Composable
 fun CategoriesBlock(categories: List<Category>, modifier: Modifier = Modifier) {
     FlowRow(
-        modifier = modifier.padding(8.dp),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {

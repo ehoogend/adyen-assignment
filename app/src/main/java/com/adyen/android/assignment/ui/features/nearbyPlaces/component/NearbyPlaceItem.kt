@@ -50,6 +50,7 @@ fun NearbyPlaceItem(
                     CategoriesBlock(
                         modifier = Modifier
                             .align(Alignment.TopEnd)
+                            .padding(top = 8.dp, end = 8.dp)
                             .sharedElement(
                                 sharedTransitionScope.rememberSharedContentState(key = "categories-${place.fsqId}"),
                                 animatedVisibilityScope = animatedContentScope
