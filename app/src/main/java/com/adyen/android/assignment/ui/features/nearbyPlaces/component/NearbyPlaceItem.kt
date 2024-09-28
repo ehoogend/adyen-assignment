@@ -1,9 +1,11 @@
-package com.adyen.android.assignment.ui.features.nearbyPlaces
+package com.adyen.android.assignment.ui.features.nearbyPlaces.component
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,17 +16,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.adyen.android.assignment.api.model.Category
-import com.adyen.android.assignment.api.model.Geocode
-import com.adyen.android.assignment.api.model.Geocodes
-import com.adyen.android.assignment.api.model.Location
-import com.adyen.android.assignment.api.model.Photo
 import com.adyen.android.assignment.api.model.Place
-import com.adyen.android.assignment.ui.features.nearbyPlaces.component.DistanceComponent
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
@@ -40,13 +37,27 @@ fun NearbyPlaceItem(
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
     ) {
         with(sharedTransitionScope) {
-            NearbyPlacePhoto(
-                modifier = Modifier.sharedElement(
-                    rememberSharedContentState(key = "photo-${place.fsqId}"),
-                    animatedVisibilityScope = animatedContentScope
-                ),
-                place = place,
-            )
+            val photo = remember { place.photos?.firstOrNull() }
+            if (place.categories.isNotEmpty() || photo != null) {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    NearbyPlacePhoto(
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope,
+                        place = place
+                    )
+                    CategoriesBlock(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .sharedElement(
+                                sharedTransitionScope.rememberSharedContentState(key = "categories-${place.fsqId}"),
+                                animatedVisibilityScope = animatedContentScope
+                            ),
+                        categories = place.categories
+                    )
+                }
+            }
             Column(
                 modifier = Modifier
                     .padding(12.dp)
@@ -61,14 +72,14 @@ fun NearbyPlaceItem(
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                DistanceComponent(
+                PlaceInfoRow(
+                    place = place,
                     modifier = Modifier
                         .sharedElement(
-                            rememberSharedContentState(key = "distance-${place.fsqId}"),
+                            rememberSharedContentState(key = "info-${place.fsqId}"),
                             animatedVisibilityScope = animatedContentScope
                         )
-                        .align(Alignment.End),
-                    distance = place.distance
+                        .align(Alignment.End)
                 )
             }
         }
@@ -77,6 +88,7 @@ fun NearbyPlaceItem(
 
 @Preview
 @Composable
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
 private fun NearbyPlaceItemPreview() {
     AppTheme {
         SharedTransitionLayout {
@@ -85,34 +97,7 @@ private fun NearbyPlaceItemPreview() {
                 targetState = Unit,
             ) { _ ->
                 NearbyPlaceItem(
-                    place = Place(
-                        fsqId = "1",
-                        name = "Place name 1",
-                        categories = listOf(
-                            Category(
-                                name = "Category 1",
-                                icon = Photo(
-                                    prefix = "prefix",
-                                    suffix = "suffix"
-                                ),
-                                id = 1
-                            )
-                        ),
-                        distance = 123,
-                        geocodes = Geocodes(
-                            main = Geocode(
-                                latitude = 1.0,
-                                longitude = 1.0
-                            ),
-                        ),
-                        location = Location(
-                            address = "Address 1",
-                            country = "Netherlands"
-                        ),
-                        timezone = "Europe/Amsterdam",
-                        description = "Place description 1",
-                        photos = null
-                    ),
+                    place = Place.preview,
                     onClick = {},
                     sharedTransitionScope = this@SharedTransitionLayout,
                     animatedContentScope = this@AnimatedContent,

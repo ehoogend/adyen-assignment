@@ -1,10 +1,9 @@
-package com.adyen.android.assignment.ui.features.nearbyPlaces
+package com.adyen.android.assignment.ui.features.nearbyPlaces.component
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -25,35 +24,32 @@ import com.adyen.android.assignment.api.model.Place
 fun NearbyPlacePhoto(
     place: Place,
     modifier: Modifier = Modifier,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope,
 ) {
-    Box(
-        modifier = modifier
-            .clip(MaterialTheme.shapes.medium),
-    ) {
+    with(sharedTransitionScope) {
         val photo = remember { place.photos?.firstOrNull() }
         photo?.let {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data("${photo.prefix}original${photo.suffix}")
                     .memoryCachePolicy(CachePolicy.ENABLED).build(),
-                contentScale = ContentScale.FillWidth,
+                contentScale = ContentScale.Crop,
                 contentDescription = stringResource(
                     R.string.place_photo_content_description,
                     place.name
                 ),
                 placeholder = painterResource(R.drawable.landscape_placeholder),
                 fallback = painterResource(R.drawable.landscape_placeholder),
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .height(200.dp)
+                    .clip(MaterialTheme.shapes.medium)
+                    .sharedElement(
+                        sharedTransitionScope.rememberSharedContentState(key = "photo-${place.fsqId}"),
+                        animatedVisibilityScope = animatedContentScope
+                    )
             )
-        } ?: Image(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp),
-            contentScale = ContentScale.FillWidth,
-            painter = painterResource(R.drawable.landscape_placeholder),
-            contentDescription = stringResource(R.string.placeholder_photo)
-        )
+        }
     }
 }
