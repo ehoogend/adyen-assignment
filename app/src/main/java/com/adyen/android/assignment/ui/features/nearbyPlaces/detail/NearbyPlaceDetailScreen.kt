@@ -1,5 +1,8 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces.detail
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
@@ -22,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.R
@@ -95,6 +99,31 @@ private fun NavigateUpIcon(
 }
 
 @Composable
+private fun NavigateToPlaceIcon(place: Place, context: Context = LocalContext.current) {
+    FilledIconButton(
+        modifier = Modifier
+            .systemBarsPadding()
+            .padding(top = 8.dp, start = 8.dp),
+        onClick = {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data =
+                    Uri.parse("geo:0,0?q=${place.geocodes.main.latitude},${place.geocodes.main.longitude}(${place.name})")
+            }
+            if (intent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(intent)
+            }
+        }
+    ) {
+        Icon(
+            Icons.AutoMirrored.Filled.NavigateBefore,
+            contentDescription = stringResource(
+                R.string.navigate_up_icon
+            )
+        )
+    }
+}
+
+@Composable
 private fun DetailScreenContent(
     place: Place,
     sharedTransitionScope: SharedTransitionScope,
@@ -125,9 +154,6 @@ private fun DetailScreenContent(
                     .align(Alignment.CenterHorizontally)
             )
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
-            place.description?.let {
-                DescriptionBlock(it)
-            }
             place.categories.takeIf { it.isNotEmpty() }?.let { categories ->
                 CategoriesBlock(
                     modifier = Modifier.sharedElement(
@@ -136,6 +162,9 @@ private fun DetailScreenContent(
                     ),
                     categories = categories
                 )
+            }
+            place.description?.let {
+                DescriptionBlock(it)
             }
         }
     }
@@ -149,7 +178,8 @@ private fun AddressText(place: Place) {
                 place.location.address,
                 place.location.locality,
                 place.location.region,
-                place.location.postcode
+                place.location.postcode,
+                place.location.country,
             ).joinToString(", ")
         }
     Text(
