@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.NavigateBefore
+import androidx.compose.material.icons.filled.Navigation
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -68,7 +69,20 @@ private fun NearbyPlaceDetailScreen(
                     sharedTransitionScope = sharedTransitionScope,
                     animatedContentScope = animatedContentScope
                 )
-                NavigateUpIcon(onNavigateUp = onNavigateUp)
+                NavigateUpIcon(
+                    onNavigateUp = onNavigateUp,
+                    modifier = Modifier
+                        .systemBarsPadding()
+                        .align(Alignment.TopStart)
+                        .padding(top = 8.dp, start = 8.dp)
+                )
+                NavigateToPlaceIcon(
+                    place = place,
+                    modifier = Modifier
+                        .systemBarsPadding()
+                        .align(Alignment.BottomEnd)
+                        .padding(top = 8.dp, end = 8.dp)
+                )
             }
             DetailScreenContent(
                 place = place,
@@ -82,11 +96,10 @@ private fun NearbyPlaceDetailScreen(
 @Composable
 private fun NavigateUpIcon(
     onNavigateUp: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     FilledIconButton(
-        modifier = Modifier
-            .systemBarsPadding()
-            .padding(top = 8.dp, start = 8.dp),
+        modifier = modifier,
         onClick = onNavigateUp
     ) {
         Icon(
@@ -99,26 +112,26 @@ private fun NavigateUpIcon(
 }
 
 @Composable
-private fun NavigateToPlaceIcon(place: Place, context: Context = LocalContext.current) {
+private fun NavigateToPlaceIcon(
+    place: Place,
+    modifier: Modifier = Modifier,
+    context: Context = LocalContext.current
+) {
     FilledIconButton(
-        modifier = Modifier
-            .systemBarsPadding()
-            .padding(top = 8.dp, start = 8.dp),
+        modifier = modifier,
         onClick = {
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data =
-                    Uri.parse("geo:0,0?q=${place.geocodes.main.latitude},${place.geocodes.main.longitude}(${place.name})")
+                    Uri.parse(
+                        "geo:0,0?q=${place.geocodes.main.latitude},${place.geocodes.main.longitude}(${place.name})"
+                    )
             }
-            if (intent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(intent)
-            }
+            context.startActivity(intent)
         }
     ) {
         Icon(
-            Icons.AutoMirrored.Filled.NavigateBefore,
-            contentDescription = stringResource(
-                R.string.navigate_up_icon
-            )
+            Icons.Default.Navigation,
+            contentDescription = stringResource(R.string.navigate_to_place_icon)
         )
     }
 }
