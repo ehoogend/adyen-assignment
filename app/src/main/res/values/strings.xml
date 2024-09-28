@@ -36,4 +36,5 @@
     <string name="price_expensive">Expensive</string>
     <string name="price_very_expensive">Very Expensive</string>
     <string name="price_icon_content_description">Price icon</string>
+    <string name="description">Description</string>
 </resources>

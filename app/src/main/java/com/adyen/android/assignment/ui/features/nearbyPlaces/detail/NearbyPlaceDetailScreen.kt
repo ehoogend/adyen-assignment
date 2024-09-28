@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -33,6 +32,9 @@ import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Place
 import com.adyen.android.assignment.ui.features.nearbyPlaces.component.CategoriesBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.component.PlaceInfoRow
+import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.AddressText
+import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.ContactInfoBlock
+import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.DescriptionBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.HorizontalPagerHeader
 
 @Composable
@@ -80,7 +82,7 @@ private fun NearbyPlaceDetailScreen(
                     place = place,
                     modifier = Modifier
                         .systemBarsPadding()
-                        .align(Alignment.BottomEnd)
+                        .align(Alignment.TopEnd)
                         .padding(top = 8.dp, end = 8.dp)
                 )
             }
@@ -156,7 +158,7 @@ private fun DetailScreenContent(
             )
             Spacer(modifier = Modifier.padding(4.dp))
             AddressText(place)
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             PlaceInfoRow(
                 place = place,
                 modifier = Modifier
@@ -177,37 +179,11 @@ private fun DetailScreenContent(
                 )
             }
             place.description?.let {
+                Spacer(modifier = Modifier.padding(4.dp))
                 DescriptionBlock(it)
             }
+            HorizontalDivider(Modifier.padding(vertical = 8.dp))
+            ContactInfoBlock(place)
         }
     }
 }
-
-@Composable
-private fun AddressText(place: Place) {
-    val addressText =
-        rememberSaveable(place) {
-            listOfNotNull(
-                place.location.address,
-                place.location.locality,
-                place.location.region,
-                place.location.postcode,
-                place.location.country,
-            ).joinToString(", ")
-        }
-    Text(
-        text = addressText,
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
-    )
-}
-
-@Composable
-private fun DescriptionBlock(description: String) {
-    Text(
-        text = description,
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
-    )
-}
-
