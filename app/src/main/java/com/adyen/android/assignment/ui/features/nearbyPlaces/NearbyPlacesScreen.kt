@@ -46,11 +46,18 @@ fun NearbyPlacesRoute(
     animatedContentScope: AnimatedContentScope,
     viewModel: NearbyPlacesViewModel = hiltViewModel(),
 ) {
+    var hasPermissionsDeniedResult by rememberSaveable { mutableStateOf(false) }
+
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
-        )
+        ),
+        onPermissionsResult = { permissions ->
+            if (permissions.all { !it.value }) {
+                hasPermissionsDeniedResult = true
+            }
+        }
     )
     val isLocationPermissionGranted = remember {
         derivedStateOf {
@@ -63,6 +70,7 @@ fun NearbyPlacesRoute(
         onClickRetry = viewModel::refresh,
         onClickPlace = onClickPlace,
         locationPermissionsState = locationPermissionsState,
+        hasPermissionsDeniedResult = hasPermissionsDeniedResult,
         sharedTransitionScope = sharedTransitionScope,
         animatedContentScope = animatedContentScope,
     )
@@ -78,6 +86,7 @@ private fun NearbyPlacesScreen(
     onClickRetry: () -> Unit,
     onClickPlace: (Place) -> Unit,
     locationPermissionsState: MultiplePermissionsState,
+    hasPermissionsDeniedResult: Boolean,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope
 ) {
@@ -100,7 +109,8 @@ private fun NearbyPlacesScreen(
                     is PlacesUIState.Loading -> NearbyPlacesLoadingContent(placesUIState.waitingForLocation)
                     PlacesUIState.Empty -> NearbyPlacesEmptyContent(onClickRetry = onClickRetry)
                     PlacesUIState.NoPermission -> NearbyPlacesNoPermissionContent(
-                        locationPermissionsState = locationPermissionsState
+                        locationPermissionsState = locationPermissionsState,
+                        hasPermissionDeniedResult = hasPermissionsDeniedResult,
                     )
 
                     is PlacesUIState.Success -> NearbyPlacesSuccessContent(
@@ -177,6 +187,7 @@ internal fun NearbyPlacesScreenPreview() {
                         override val shouldShowRationale: Boolean = false
                         override fun launchMultiplePermissionRequest() {}
                     },
+                    hasPermissionsDeniedResult = false,
                     sharedTransitionScope = this@SharedTransitionLayout,
                     animatedContentScope = this@AnimatedContent,
                 )
