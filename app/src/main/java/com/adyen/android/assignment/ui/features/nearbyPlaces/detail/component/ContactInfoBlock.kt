@@ -49,7 +49,9 @@ fun ContactInfoBlock(place: Place, modifier: Modifier = Modifier) {
             ContactInfoElement(
                 text = it,
                 icon = Icons.Default.Web,
-                intent = Intent(Intent.ACTION_SENDTO).putExtra(Intent.EXTRA_EMAIL, arrayOf(it))
+                intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:$it")
+                }
             )
         }
     }
