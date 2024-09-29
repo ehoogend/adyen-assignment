@@ -1,7 +1,10 @@
 package com.adyen.android.assignment.api.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Category(
-    val icon: Icon,
-    val id: String,
+    val icon: Photo,
+    val id: Int,
     val name: String,
-)
+) : java.io.Serializable

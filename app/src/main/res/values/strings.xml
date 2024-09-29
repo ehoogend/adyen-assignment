@@ -1,3 +1,42 @@
 <resources>
-    <string name="app_name">Android Assignment</string>
+    <string name="app_name">Erik\'s Assignment</string>
+    <string name="nearby_places_title">Nearby places</string>
+    <string name="warning_icon">Warning icon</string>
+
+    <string name="error_header">Something went wrong</string>
+    <string name="error_message">An error occurred. Please try again later.</string>
+
+    <string name="empty_header">Nothing here?</string>
+    <string name="empty_message">No nearby places found.</string>
+
+    <string name="retry">Retry</string>
+    <string name="search_again">Search again</string>
+    <string name="distance_format">%d meters</string>
+    <string name="place_photo_content_description">Photo of %1$s</string>
+    <string name="placeholder_photo">Placeholder photo</string>
+    <string name="request_fine_location_text">Allowing access to your exact location lets you see nearby places more accurately.</string>
+    <string name="request_location_text">Allow the app to access your location, so you can see nearby places.</string>
+    <string name="request_location_button">Allow</string>
+    <string name="settings_permission_text">Allow location access from settings to see nearby places.</string>
+    <string name="settings_permission_button">Settings</string>
+    <string name="search_icon">Search icon</string>
+    <string name="navigate_up_icon">Navigate up icon</string>
+    <string name="navigate_to_place_icon">Navigate to place icon</string>
+    <string name="place_icon">Place icon</string>
+    <string name="kms_format">%.1f km</string>
+    <string name="location_icon">Location icon</string>
+    <string name="rating_format">%.1f/10</string>
+    <string name="very_likely_open">Open</string>
+    <string name="likely_open">Likely open</string>
+    <string name="likely_closed">Likely closed</string>
+    <string name="very_likely_closed">Closed</string>
+    <string name="unsure">Unknown</string>
+    <string name="price_cheap">Cheap</string>
+    <string name="price_moderate">Moderate</string>
+    <string name="price_expensive">Expensive</string>
+    <string name="price_very_expensive">Very Expensive</string>
+    <string name="price_icon_content_description">Price icon</string>
+    <string name="description">Description</string>
+    <string name="finding_places_around">Finding places around you…</string>
+    <string name="checking_where_you_are">Checking where you are…</string>
 </resources>
