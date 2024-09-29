@@ -15,7 +15,7 @@ interface PlacesService {
      */
     @Headers("Authorization: ${BuildConfig.API_KEY}")
     @GET("places/nearby")
-    suspend fun getVenueRecommendations(
+    suspend fun getNearbyPlaces(
         @Query("fields") fields: String,
         @Query("ll") location: String? = null,
         @Query("limit") limit: Int,

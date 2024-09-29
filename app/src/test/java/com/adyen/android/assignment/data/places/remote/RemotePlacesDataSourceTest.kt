@@ -41,14 +41,14 @@ class RemotePlacesDataSourceTest {
         val mockPlaces = listOf(mockk<Place>(), mockk<Place>())
         val mockResponse = PlacesResponse(results = mockPlaces)
 
-        coEvery { placesService.getVenueRecommendations(any(), any(), any()) } returns mockResponse
+        coEvery { placesService.getNearbyPlaces(any(), any(), any()) } returns mockResponse
 
         val result = remotePlacesDataSource.getRecommendedPlaces(mockLocation)
 
         assertEquals(mockPlaces, result)
 
         coVerify {
-            placesService.getVenueRecommendations(
+            placesService.getNearbyPlaces(
                 fields = any(),
                 location = "52.37651,4.90589",
                 limit = any()
@@ -60,7 +60,7 @@ class RemotePlacesDataSourceTest {
     fun `Empty Recommendation List is propagated`() = runTest {
         val mockResponse = PlacesResponse(results = emptyList())
 
-        coEvery { placesService.getVenueRecommendations(any(), any(), any()) } returns mockResponse
+        coEvery { placesService.getNearbyPlaces(any(), any(), any()) } returns mockResponse
 
         val result = remotePlacesDataSource.getRecommendedPlaces(mockLocation)
 
@@ -70,7 +70,7 @@ class RemotePlacesDataSourceTest {
     @Test(expected = Exception::class)
     fun `Network Errors get propagated`() = runTest {
         coEvery {
-            placesService.getVenueRecommendations(
+            placesService.getNearbyPlaces(
                 any(),
                 any(),
                 any()
