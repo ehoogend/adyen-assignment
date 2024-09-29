@@ -52,15 +52,6 @@ This module contains the core functionality of the application, including:
     - **`RemotePlacesDataSource`:** This class fetches place data from the Foursquare API.
       **`MainActivity`:** The main entry point of the application.
 
-
-### 2. Cash Register Module
-
-This module is a separate component that implements a simple cash register system. It is not directly related to the nearby places functionality but was part of the assignment.
-
-- **`money`:** Contains classes for representing monetary values and performing calculations related to change.
-    - **`Change`:** The data class representing monetary values and change.
-- **`CashRegister`:** The class responsible for performing transactions and calculating change.
-
 ## Other considerations
 
 ### Security Considerations
@@ -71,7 +62,9 @@ This could be achieved by using environment variables, local properties files, o
 
 ### Testing
 
-The project includes unit tests for core functionalities and business logic. However, due to time constraints, UI tests and snapshot tests have not been implemented yet. These types of tests are crucial for ensuring the quality and stability of the user interface.
+The project includes unit tests for core functionalities and business logic. However, due to time constraints, UI tests and snapshot tests have not been implemented yet. 
+
+Implementation of snapshot tests was in progress but not finished due to time constraints and compatibility issues with animated navigation transitions.
 In future development, adding UI and snapshot tests would provide comprehensive test coverage and enhance the overall robustness of the application.
 
 Assignment text below
