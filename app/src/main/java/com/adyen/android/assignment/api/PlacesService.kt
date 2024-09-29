@@ -4,7 +4,7 @@ import com.adyen.android.assignment.BuildConfig
 import com.adyen.android.assignment.api.model.PlacesResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.QueryMap
+import retrofit2.http.Query
 
 
 interface PlacesService {
@@ -15,5 +15,9 @@ interface PlacesService {
      */
     @Headers("Authorization: ${BuildConfig.API_KEY}")
     @GET("places/nearby")
-    suspend fun getVenueRecommendations(@QueryMap query: Map<String, String>): PlacesResponse
+    suspend fun getVenueRecommendations(
+        @Query("fields") fields: String,
+        @Query("ll") location: String? = null,
+        @Query("limit") limit: Int,
+    ): PlacesResponse
 }
