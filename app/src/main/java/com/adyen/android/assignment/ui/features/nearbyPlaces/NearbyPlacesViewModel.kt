@@ -22,6 +22,13 @@ import kotlinx.coroutines.flow.transformLatest
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * ViewModel for the Nearby Places screen.
+ *
+ * This ViewModel is responsible for fetching and managing the list of nearby places,
+ * handling loading states, and error handling. It interacts with the [PlacesRepository]
+ * to fetch data and updates the UI state accordingly.
+ */
 @HiltViewModel
 class NearbyPlacesViewModel @Inject constructor(
     private val placesRepository: PlacesRepository,
@@ -67,9 +74,22 @@ class NearbyPlacesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PlacesUIState.Loading())
 
-    fun setLocationPermission(withLocationPermission: Boolean) =
-        permissionState.tryEmit(withLocationPermission)
+    /**
+     * Sets the location permission status.
+     *
+     * This function is called when the location permission status changes. It updates the ViewModel's internal state
+     * and triggers a refresh of the places list if the permission is granted.
+     *
+     * @param isGranted True if the location permission is granted, false otherwise.
+     */
+    fun setLocationPermission(isGranted: Boolean) =
+        permissionState.tryEmit(isGranted)
 
+    /**
+     * Refreshes the list of nearby places.
+     *
+     * This function triggers a new fetch of places from the repository, updating the UI state accordingly.
+     */
     fun refresh() {
         refresh.tryEmit(Unit)
     }
