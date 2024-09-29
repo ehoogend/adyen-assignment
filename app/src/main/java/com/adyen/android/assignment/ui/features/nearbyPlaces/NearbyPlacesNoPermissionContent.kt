@@ -33,8 +33,8 @@ import com.google.accompanist.permissions.PermissionState
 
 @Composable
 fun NearbyPlacesNoPermissionContent(
-    modifier: Modifier = Modifier,
     locationPermissionsState: MultiplePermissionsState,
+    modifier: Modifier = Modifier,
     context: Context = LocalContext.current,
 ) {
     Column(

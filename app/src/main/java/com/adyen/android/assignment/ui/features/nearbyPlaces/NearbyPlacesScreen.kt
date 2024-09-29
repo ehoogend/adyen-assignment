@@ -44,7 +44,7 @@ fun NearbyPlacesRoute(
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
     )
-    val hasLocationPermission = remember(locationPermissionsState) {
+    val hasLocationPermission = rememberSaveable {
         locationPermissionsState.permissions.any { it.status.isGranted }
     }
 
