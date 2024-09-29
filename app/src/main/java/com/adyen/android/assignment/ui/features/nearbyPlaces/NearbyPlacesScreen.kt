@@ -45,7 +45,7 @@ fun NearbyPlacesRoute(
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
     )
-    val hasLocationPermission = remember {
+    val isLocationPermissionGranted = remember {
         derivedStateOf {
             locationPermissionsState.permissions.any { it.status.isGranted }
         }
@@ -60,8 +60,8 @@ fun NearbyPlacesRoute(
         animatedContentScope = animatedContentScope,
     )
     // Ensure ViewModel is always updated with the latest value of location permission st
-    LaunchedEffect(hasLocationPermission.value) {
-        viewModel.setLocationPermission(hasLocationPermission.value)
+    LaunchedEffect(isLocationPermissionGranted.value) {
+        viewModel.setLocationPermission(isLocationPermissionGranted.value)
     }
 }
 
@@ -121,7 +121,7 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-                locationPermissionsState.permissions.any { it.status.isGranted }
+            locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
         LaunchedEffect(snackbarHostState) {
