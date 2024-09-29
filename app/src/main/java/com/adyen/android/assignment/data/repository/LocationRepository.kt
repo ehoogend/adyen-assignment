@@ -27,7 +27,6 @@ class LocationRepository @Inject constructor(
         try {
             fusedLocationClient.lastLocation.await<Location?>()?.let { send(it) }
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-                .await()
         } catch (e: SecurityException) {
             close(e)
         }
