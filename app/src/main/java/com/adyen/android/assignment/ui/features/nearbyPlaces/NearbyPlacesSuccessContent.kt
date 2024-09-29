@@ -52,7 +52,7 @@ fun NearbyPlacesSuccessContent(
 @Preview
 @Composable
 @SuppressLint("UnusedContentLambdaTargetStateParameter")
-private fun NearbyPlacesSuccessPreview() {
+internal fun NearbyPlacesSuccessPreview() {
     AppTheme {
         SharedTransitionLayout {
             AnimatedContent(

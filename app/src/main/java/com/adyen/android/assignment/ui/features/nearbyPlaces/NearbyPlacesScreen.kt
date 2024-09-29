@@ -154,7 +154,7 @@ private fun FineLocationPermissionSnackbarContent(
 @Composable
 @Preview
 @SuppressLint("UnusedContentLambdaTargetStateParameter")
-private fun NearbyPlacesScreenPreview() {
+internal fun NearbyPlacesScreenPreview() {
     AppTheme {
         SharedTransitionLayout {
             AnimatedContent(

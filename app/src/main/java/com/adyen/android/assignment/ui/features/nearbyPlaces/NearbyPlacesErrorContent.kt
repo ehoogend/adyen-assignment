@@ -52,7 +52,7 @@ fun NearbyPlacesErrorContent(
 
 @Preview
 @Composable
-private fun NearbyPlacesErrorPreview() {
+internal fun NearbyPlacesErrorPreview() {
     AppTheme {
         Scaffold {
             NearbyPlacesErrorContent(

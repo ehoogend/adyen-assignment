@@ -198,7 +198,7 @@ private fun DetailScreenContent(
 @Composable
 @Preview
 @SuppressLint("UnusedContentLambdaTargetStateParameter")
-private fun NearbyPlaceDetailScreenPreview() {
+internal fun NearbyPlaceDetailScreenPreview() {
     AppTheme {
         SharedTransitionLayout {
             AnimatedContent(

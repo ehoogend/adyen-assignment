@@ -93,7 +93,7 @@ fun NearbyPlacesNoPermissionContent(
 
 @Preview
 @Composable
-private fun NearbyPlacesNoPermissionRationalePreview() {
+internal fun NearbyPlacesNoPermissionRationalePreview() {
     AppTheme {
         Scaffold {
             NearbyPlacesNoPermissionContent(
@@ -112,7 +112,7 @@ private fun NearbyPlacesNoPermissionRationalePreview() {
 
 @Preview
 @Composable
-private fun NearbyPlacesNoPermissionSettingsPreview() {
+internal fun NearbyPlacesNoPermissionSettingsPreview() {
     AppTheme {
         Scaffold {
             NearbyPlacesNoPermissionContent(

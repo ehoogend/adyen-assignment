@@ -91,7 +91,7 @@ fun NearbyPlaceItem(
 @Preview
 @Composable
 @SuppressLint("UnusedContentLambdaTargetStateParameter")
-private fun NearbyPlaceItemPreview() {
+internal fun NearbyPlaceItemPreview() {
     AppTheme {
         SharedTransitionLayout {
             AnimatedContent(

@@ -44,7 +44,7 @@ fun NearbyPlacesLoadingContent(waitingForLocation: Boolean, modifier: Modifier =
 
 @Preview
 @Composable
-private fun NearbyPlacesLoadingPreview() {
+internal fun NearbyPlacesLoadingPreview() {
     AppTheme {
         Scaffold {
             NearbyPlacesLoadingContent(

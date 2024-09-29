@@ -52,7 +52,7 @@ fun NearbyPlacesEmptyContent(
 
 @Preview
 @Composable
-private fun NearbyPlacesEmptyPreview() {
+internal fun NearbyPlacesEmptyPreview() {
     AppTheme {
         Scaffold {
             NearbyPlacesEmptyContent(

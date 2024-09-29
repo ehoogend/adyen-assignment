@@ -23,9 +23,9 @@ import com.adyen.android.assignment.api.model.Place
 @Composable
 fun NearbyPlacePhoto(
     place: Place,
-    modifier: Modifier = Modifier,
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope,
+    modifier: Modifier = Modifier,
 ) {
     with(sharedTransitionScope) {
         val photo = remember { place.photos?.firstOrNull() }

@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -124,8 +125,10 @@ private fun FlowRowScope.InfoComponent(icon: ImageVector, text: String) {
 
 @Preview
 @Composable
-private fun PlaceInfoRowPreview() {
+internal fun PlaceInfoRowPreview() {
     AppTheme {
-        PlaceInfoRow(place = Place.preview)
+        Surface {
+            PlaceInfoRow(place = Place.preview)
+        }
     }
 }
