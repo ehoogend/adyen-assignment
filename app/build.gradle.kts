@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -83,7 +83,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Androidx navigation
     implementation(libs.androidx.navigation.compose)
@@ -132,9 +132,4 @@ dependencies {
 // See https://github.com/mockito/mockito/issues/3037
 tasks.withType<Test> {
     jvmArgs("-XX:+EnableDynamicAgentLoading")
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }

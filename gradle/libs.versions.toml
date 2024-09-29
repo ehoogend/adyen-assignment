@@ -16,6 +16,7 @@ kotlin = "2.0.0"
 kotlinxCollectionsImmutable = "0.3.7"
 kotlinxCoroutines = "1.9.0"
 kotlinxSerialization = "1.7.3"
+ksp = "2.0.0-1.0.21"
 lifecycleRuntimeKtx = "2.8.6"
 mockk = "1.13.12"
 navigationCompose = "2.8.1"
@@ -73,3 +74,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
