@@ -17,7 +17,6 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,23 +44,21 @@ fun NearbyPlacesRoute(
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
     )
-    val hasLocationPermission =
-        remember {
-            derivedStateOf {
-                locationPermissionsState.permissions.any { it.status.isGranted }
-            }
-        }
+    val hasLocationPermission = remember(locationPermissionsState) {
+        locationPermissionsState.permissions.any { it.status.isGranted }
+    }
 
     NearbyPlacesScreen(
         placesUIState = viewModel.uiState.collectAsState().value,
-        onClickRetry = { viewModel.updateLocationPermissionState(hasLocationPermission.value) },
+        onClickRetry = viewModel::refresh,
         onClickPlace = onClickPlace,
         locationPermissionsState = locationPermissionsState,
         sharedTransitionScope = sharedTransitionScope,
         animatedContentScope = animatedContentScope,
     )
-    LaunchedEffect(hasLocationPermission.value) {
-        viewModel.updateLocationPermissionState(hasLocationPermission.value)
+    // Ensure ViewModel is always updated with the latest value of location permission state.
+    LaunchedEffect(locationPermissionsState) {
+        viewModel.setLocationPermission(hasLocationPermission)
     }
 }
 
@@ -81,9 +78,7 @@ private fun NearbyPlacesScreen(
     )
 
     Scaffold(
-        snackbarHost = {
-            SnackbarHost(snackbarHostState)
-        }
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues: PaddingValues ->
         Box(
             modifier = Modifier
@@ -123,7 +118,6 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-            locationPermissionsState.shouldShowRationale &&
             locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
@@ -132,7 +126,7 @@ private fun FineLocationPermissionSnackbarContent(
                 message = context.getString(R.string.request_fine_location_text),
                 actionLabel = context.getString(R.string.request_location_button),
                 withDismissAction = true,
-                duration = SnackbarDuration.Indefinite
+                duration = SnackbarDuration.Long
             )
             when (result) {
                 SnackbarResult.Dismissed -> {
