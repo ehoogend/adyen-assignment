@@ -17,6 +17,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,8 +45,10 @@ fun NearbyPlacesRoute(
             Manifest.permission.ACCESS_FINE_LOCATION,
         )
     )
-    val hasLocationPermission = rememberSaveable {
-        locationPermissionsState.permissions.any { it.status.isGranted }
+    val hasLocationPermission = remember {
+        derivedStateOf {
+            locationPermissionsState.permissions.any { it.status.isGranted }
+        }
     }
 
     NearbyPlacesScreen(
@@ -56,9 +59,9 @@ fun NearbyPlacesRoute(
         sharedTransitionScope = sharedTransitionScope,
         animatedContentScope = animatedContentScope,
     )
-    // Ensure ViewModel is always updated with the latest value of location permission state.
-    LaunchedEffect(locationPermissionsState) {
-        viewModel.setLocationPermission(hasLocationPermission)
+    // Ensure ViewModel is always updated with the latest value of location permission st
+    LaunchedEffect(hasLocationPermission.value) {
+        viewModel.setLocationPermission(hasLocationPermission.value)
     }
 }
 
@@ -118,7 +121,7 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-            locationPermissionsState.permissions.any { it.status.isGranted }
+                locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
         LaunchedEffect(snackbarHostState) {
