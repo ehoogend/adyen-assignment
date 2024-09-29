@@ -41,6 +41,7 @@ import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.Co
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.DescriptionBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.HorizontalPagerHeader
 import com.adyen.android.assignment.ui.theme.AppTheme
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun NearbyPlaceDetailRoute(
@@ -180,7 +181,7 @@ private fun DetailScreenContent(
                         sharedTransitionScope.rememberSharedContentState(key = "categories-${place.fsqId}"),
                         animatedVisibilityScope = animatedContentScope
                     ),
-                    categories = categories
+                    categories = categories.toImmutableList()
                 )
             }
             place.description?.let {
