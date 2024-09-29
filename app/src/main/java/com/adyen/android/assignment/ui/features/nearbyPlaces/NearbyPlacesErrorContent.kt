@@ -38,7 +38,6 @@ fun NearbyPlacesErrorContent(
         Icon(
             modifier = Modifier.size(128.dp),
             imageVector = Icons.Default.Build,
-            tint = MaterialTheme.colorScheme.tertiary,
             contentDescription = stringResource(R.string.warning_icon)
         )
         Text(text = stringResource(id = R.string.error_message))
