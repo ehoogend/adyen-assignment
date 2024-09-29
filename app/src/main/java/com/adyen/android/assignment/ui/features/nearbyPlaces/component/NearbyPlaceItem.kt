@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.api.model.Place
 import com.adyen.android.assignment.ui.theme.AppTheme
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun NearbyPlaceItem(
@@ -55,7 +56,7 @@ fun NearbyPlaceItem(
                                 sharedTransitionScope.rememberSharedContentState(key = "categories-${place.fsqId}"),
                                 animatedVisibilityScope = animatedContentScope
                             ),
-                        categories = place.categories
+                        categories = place.categories.toImmutableList()
                     )
                 }
             }
