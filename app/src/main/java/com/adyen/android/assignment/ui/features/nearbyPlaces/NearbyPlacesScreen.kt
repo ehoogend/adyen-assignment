@@ -92,7 +92,7 @@ private fun NearbyPlacesScreen(
         ) {
             Column {
                 when (placesUIState) {
-                    PlacesUIState.Loading -> NearbyPlacesLoadingContent()
+                    is PlacesUIState.Loading -> NearbyPlacesLoadingContent(placesUIState.waitingForLocation)
                     PlacesUIState.Empty -> NearbyPlacesEmptyContent(onClickRetry = onClickRetry)
                     PlacesUIState.NoPermission -> NearbyPlacesNoPermissionContent(
                         locationPermissionsState = locationPermissionsState

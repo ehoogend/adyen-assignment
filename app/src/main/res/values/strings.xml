@@ -37,4 +37,6 @@
     <string name="price_very_expensive">Very Expensive</string>
     <string name="price_icon_content_description">Price icon</string>
     <string name="description">Description</string>
+    <string name="finding_places_around">Finding places around you…</string>
+    <string name="checking_where_you_are">Checking where you are…</string>
 </resources>

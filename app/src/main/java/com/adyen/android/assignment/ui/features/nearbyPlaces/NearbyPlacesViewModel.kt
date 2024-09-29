@@ -36,27 +36,30 @@ class NearbyPlacesViewModel @Inject constructor(
         refreshWithLocationPermissionTrigger
             .distinctUntilChanged()
             .transformLatest { hasLocationPermission ->
+                emit(PlacesUIState.Loading())
                 if (hasLocationPermission) {
                     emitAll(
-                        locationRepository.locationFlow.map {
-                            placesRepository.getRecommendedPlaces(it).sortedBy { it.distance }
+                        locationRepository.locationFlow.map { location ->
+                            if (location == null) {
+                                PlacesUIState.Loading(waitingForLocation = true)
+                            } else {
+                                val places = placesRepository.getRecommendedPlaces(location)
+                                    .sortedBy { it.distance }
+                                if (places.isEmpty()) {
+                                    PlacesUIState.Empty
+                                } else {
+                                    PlacesUIState.Success(places.toImmutableList())
+                                }
+                            }
                         }
                     )
                 } else {
-                    emit(null)
-                }
-            }.map { places ->
-                if (places == null) {
-                    PlacesUIState.NoPermission
-                } else if (places.isEmpty()) {
-                    PlacesUIState.Empty
-                } else {
-                    PlacesUIState.Success(places.toImmutableList())
+                    emit(PlacesUIState.NoPermission)
                 }
             }.catch {
                 Timber.e(it)
                 emit(PlacesUIState.Error(it))
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PlacesUIState.Loading)
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PlacesUIState.Loading())
 
     fun updateLocationPermissionState(withLocationPermission: Boolean) {
         refreshWithLocationPermissionTrigger.tryEmit(withLocationPermission)
@@ -68,5 +71,5 @@ sealed class PlacesUIState {
     data object Empty : PlacesUIState()
     data object NoPermission : PlacesUIState()
     data class Error(val exception: Throwable) : PlacesUIState()
-    data object Loading : PlacesUIState()
+    data class Loading(val waitingForLocation: Boolean = false) : PlacesUIState()
 }
