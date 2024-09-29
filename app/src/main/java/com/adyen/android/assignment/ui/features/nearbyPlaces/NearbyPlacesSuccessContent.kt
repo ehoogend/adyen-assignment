@@ -62,7 +62,7 @@ private fun NearbyPlacesSuccessPreview() {
                 Scaffold {
                     NearbyPlacesSuccessContent(
                         modifier = Modifier.padding(it),
-                        places = persistentListOf(),
+                        places = persistentListOf(Place.preview, Place.preview.copy(fsqId = "2")),
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedContentScope = this@AnimatedContent,
                         onClickPlace = {}

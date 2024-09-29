@@ -1,8 +1,11 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,12 +28,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.ui.theme.AppTheme
 import com.google.accompanist.permissions.MultiplePermissionsState
+import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun NearbyPlacesRoute(
@@ -121,7 +128,7 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-            locationPermissionsState.permissions.any { it.status.isGranted }
+                locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
         LaunchedEffect(snackbarHostState) {
@@ -139,6 +146,40 @@ private fun FineLocationPermissionSnackbarContent(
                 SnackbarResult.ActionPerformed -> {
                     locationPermissionsState.launchMultiplePermissionRequest()
                 }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+private fun NearbyPlacesScreenPreview() {
+    AppTheme {
+        SharedTransitionLayout {
+            AnimatedContent(
+                contentKey = { "content" },
+                targetState = Unit,
+            ) { _ ->
+                NearbyPlacesScreen(
+                    placesUIState = PlacesUIState.Success(
+                        persistentListOf(
+                            Place.preview,
+                            Place.preview.copy(fsqId = "2")
+                        )
+                    ),
+                    onClickRetry = {},
+                    onClickPlace = {},
+                    locationPermissionsState = object : MultiplePermissionsState {
+                        override val allPermissionsGranted: Boolean = false
+                        override val permissions: List<PermissionState> = emptyList()
+                        override val revokedPermissions: List<PermissionState> = emptyList()
+                        override val shouldShowRationale: Boolean = false
+                        override fun launchMultiplePermissionRequest() {}
+                    },
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent,
+                )
             }
         }
     }

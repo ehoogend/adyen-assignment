@@ -1,9 +1,12 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Place
@@ -36,6 +40,7 @@ import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.Ad
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.ContactInfoBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.DescriptionBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.HorizontalPagerHeader
+import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
 fun NearbyPlaceDetailRoute(
@@ -185,6 +190,27 @@ private fun DetailScreenContent(
             if (place.hasContactInfo) {
                 HorizontalDivider(Modifier.padding(vertical = 8.dp))
                 ContactInfoBlock(place)
+            }
+        }
+    }
+}
+
+@Composable
+@Preview
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+private fun NearbyPlaceDetailScreenPreview() {
+    AppTheme {
+        SharedTransitionLayout {
+            AnimatedContent(
+                contentKey = { "content" },
+                targetState = Unit,
+            ) { _ ->
+                NearbyPlaceDetailScreen(
+                    onNavigateUp = {},
+                    place = Place.preview,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
             }
         }
     }
