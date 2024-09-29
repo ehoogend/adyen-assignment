@@ -128,6 +128,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
+// Workaround for dynamic loading of byte-buddy-agent.
+// See https://github.com/mockito/mockito/issues/3037
+tasks.withType<Test> {
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
+}
+
 // Allow references to generated code
 kapt {
     correctErrorTypes = true
