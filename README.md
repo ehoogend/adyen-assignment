@@ -65,6 +65,8 @@ This could be achieved by using environment variables, local properties files, o
 The project includes unit tests for core functionalities and business logic. However, due to time constraints, UI tests and snapshot tests have not been implemented yet. 
 
 Implementation of snapshot tests was in progress but not finished due to time constraints and compatibility issues with animated navigation transitions.
+See branch feature/snapshot-testing or PR [#3](https://github.com/ehoogend/adyen-assignment/pull/3).
+
 In future development, adding UI and snapshot tests would provide comprehensive test coverage and enhance the overall robustness of the application.
 
 Assignment text below
