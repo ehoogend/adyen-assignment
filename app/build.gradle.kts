@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.paparazzi)
 }
 
 android {
@@ -119,6 +120,13 @@ dependencies {
     testImplementation(libs.kotlin.test.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
+
+    // Showkase + paparazzi snapshot testing
+    debugImplementation(libs.showkase)
+    implementation(libs.showkase.annotation)
+    kspDebug(libs.showkase.processor)
+    testImplementation(libs.showkase.screenshot.testing)
+    testImplementation(libs.showkase.screenshot.testing.paparazzi)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
