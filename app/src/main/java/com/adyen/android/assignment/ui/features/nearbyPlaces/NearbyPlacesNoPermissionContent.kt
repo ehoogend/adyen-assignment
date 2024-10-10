@@ -124,7 +124,7 @@ internal fun NearbyPlacesNoPermissionRationalePreview() {
                     override val allPermissionsGranted: Boolean = false
                     override val permissions: List<PermissionState> = emptyList()
                     override val revokedPermissions: List<PermissionState> = emptyList()
-                    override val shouldShowRationale: Boolean = false
+                    override val shouldShowRationale: Boolean = true
                     override fun launchMultiplePermissionRequest() {}
                 },
                 hasPermissionDeniedResult = true
