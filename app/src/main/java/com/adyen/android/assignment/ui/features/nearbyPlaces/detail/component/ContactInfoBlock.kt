@@ -15,14 +15,17 @@ import androidx.compose.material.icons.filled.Web
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
 fun ContactInfoBlock(place: Place, modifier: Modifier = Modifier) {
@@ -81,5 +84,17 @@ private fun ColumnScope.ContactInfoElement(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
         )
+    }
+}
+
+@Preview
+@Composable
+private fun ContactInfoBlockPreview() {
+    AppTheme {
+        Surface {
+            ContactInfoBlock(
+                place = Place.preview
+            )
+        }
     }
 }

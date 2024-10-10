@@ -1,6 +1,9 @@
 package com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -29,12 +32,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable
 fun HorizontalPagerHeader(
@@ -113,6 +118,26 @@ private fun BoxScope.PageIndicators(pagerState: PagerState) {
                     .background(color.value)
                     .size(size.value)
             )
+        }
+    }
+}
+
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
+@Preview
+@Composable
+private fun HorizontalPagerHeaderPreview() {
+    AppTheme {
+        SharedTransitionLayout {
+            AnimatedContent(
+                contentKey = { "content" },
+                targetState = Unit,
+            ) { _ ->
+                HorizontalPagerHeader(
+                    place = Place.preview,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedContentScope = this@AnimatedContent
+                )
+            }
         }
     }
 }
