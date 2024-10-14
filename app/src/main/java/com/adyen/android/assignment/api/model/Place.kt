@@ -52,7 +52,16 @@ data class Place(
             ),
             description = "Place description 1",
             rating = 4.5f,
-            photos = null,
+            photos = listOf(
+                Photo(
+                    prefix = "prefix1",
+                    suffix = "suffix1"
+                ),
+                Photo(
+                    prefix = "prefix2",
+                    suffix = "suffix2"
+                )
+            ),
             closedBucket = ClosedBucket.LikelyOpen,
             tel = "123456789",
             website = "https://www.website.com",

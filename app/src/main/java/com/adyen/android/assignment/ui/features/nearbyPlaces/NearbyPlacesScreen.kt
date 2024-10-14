@@ -138,7 +138,7 @@ private fun FineLocationPermissionSnackbarContent(
     }
     val shouldShowFinePermissionRequestRationale =
         !locationPermissionsState.allPermissionsGranted &&
-                locationPermissionsState.permissions.any { it.status.isGranted }
+            locationPermissionsState.permissions.any { it.status.isGranted }
 
     if (!fineLocationPermissionSnackbarShown && shouldShowFinePermissionRequestRationale) {
         LaunchedEffect(snackbarHostState) {
