@@ -2,12 +2,11 @@ package com.adyen.android.assignment.money
 
 import java.util.TreeMap
 
-class Change {
-    private val map by lazy {
-        TreeMap<MonetaryElement, Int> { lhs, rhs ->
-            lhs.minorValue.compareTo(rhs.minorValue)
-        }
-    }
+data class Change(
+    private val map: TreeMap<MonetaryElement, Int> = TreeMap<MonetaryElement, Int> { lhs, rhs ->
+        lhs.minorValue.compareTo(rhs.minorValue)
+    },
+) {
 
     var total: Long = 0
         private set
@@ -29,7 +28,7 @@ class Change {
     }
 
     /**
-     * Creates a new [Change] object that contains this object's elements as well as the provided [change] parameter's elements.
+     * Creates a new [Change] object that contains this object's elements as well as the provided [otherChange] parameter's elements.
      * @param otherChange The [Change] object to add to this object.
      */
     operator fun plus(otherChange: Change): Change {
