@@ -253,4 +253,61 @@ class CashRegisterTest {
             cashRegister.performTransaction(price, amountPaid)
         )
     }
+
+    @Test
+    fun `edge case 1 - using lower denominations only`() {
+        val initialChange = Change()
+        initialChange.add(Bill.FIVE_EURO, 1)
+        initialChange.add(Coin.TWO_EURO, 3)
+        val cashRegister = CashRegister(initialChange)
+
+        val paidChange = Change().add(Bill.TEN_EURO, 1)
+
+        // Paid 10, costs 4, return 6
+        val returnedChange = cashRegister.performTransaction(4_00L, paidChange)
+
+        assert(returnedChange.total == 6_00L)
+    }
+
+    @Test
+    fun `edge case 2 - using higher and lower denominations`() {
+        val initialChange = Change()
+        initialChange.add(Bill.FIVE_EURO, 4)
+        initialChange.add(Coin.TWO_EURO, 3)
+        val cashRegister = CashRegister(initialChange)
+
+        val paidChange = Change().add(Bill.TEN_EURO, 2)
+
+        // Paid 10, costs 4, return 6
+        val returnedChange = cashRegister.performTransaction(4_00L, paidChange)
+
+        assert(returnedChange.total == 16_00L)
+    }
+
+    @Test
+    fun `edge case 3 - using lower denominations only`() {
+        val initialChange = Change()
+        initialChange.add(Bill.TWO_HUNDRED_EURO, 3)
+        val cashRegister = CashRegister(initialChange)
+
+        val paidChange = Change().add(Bill.FIVE_HUNDRED_EURO, 4)
+
+        // Paid 10, costs 4, return 6
+        val returnedChange = cashRegister.performTransaction(1400_00L, paidChange)
+
+        assert(returnedChange.total == 600_00L)
+    }
+
+    @Test
+    fun `edge case 4 - returning change paid by customer`() {
+        val registerChange = Change()
+
+        val cashRegister = CashRegister(registerChange)
+
+        val paidChange = Change().apply {
+            add(Coin.TWO_EURO, 3)
+        }
+
+        println(cashRegister.performTransaction(4_00L, paidChange))
+    }
 }
