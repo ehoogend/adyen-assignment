@@ -37,11 +37,11 @@ This module contains the core functionality of the application, including the us
 
 - **`api`:** Handles interaction with the Foursquare API.
   - **`places`:** Handles interactions with the Foursquare API for place-related data.
-    - **`Place`:** Data class representing a place of interest.
-    - **`PlacesResponse`:** Data class for API responses.
+    - **`model/PlacesResponse`:** Data class for API responses.
     - **`PlacesService`:** Interface or class for making API calls.
 - **`data`:** Contains the data layer, organized by feature.
-  - **`places`:** Handles data related to places.
+- **`places`:** Handles data related to places.
+    - **`model/Place`:** Data class representing a place of interest.
     - **`PlacesRepository`:** Fetches and caches place data.
     - **`PlacesRemoteDataSource`:** Fetches place data from the Foursquare API.
   - **`location`:**

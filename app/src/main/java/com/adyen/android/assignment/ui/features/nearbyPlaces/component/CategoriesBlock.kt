@@ -9,7 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.adyen.android.assignment.api.places.model.Category
+import com.adyen.android.assignment.data.places.model.Category
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable

@@ -38,7 +38,7 @@ import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.places.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable

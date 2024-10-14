@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.adyen.android.assignment.api.places.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.ui.theme.AppTheme
 
 @Composable

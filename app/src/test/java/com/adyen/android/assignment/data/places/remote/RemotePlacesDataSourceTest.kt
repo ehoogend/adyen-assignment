@@ -2,7 +2,7 @@ package com.adyen.android.assignment.data.places.remote
 
 import android.location.Location
 import com.adyen.android.assignment.api.places.PlacesService
-import com.adyen.android.assignment.api.places.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.api.places.model.PlacesResponse
 import io.mockk.coEvery
 import io.mockk.coVerify

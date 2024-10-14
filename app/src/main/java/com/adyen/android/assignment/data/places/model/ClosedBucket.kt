@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.api.places.model
+package com.adyen.android.assignment.data.places.model
 
 import androidx.annotation.StringRes
 import com.adyen.android.assignment.R
