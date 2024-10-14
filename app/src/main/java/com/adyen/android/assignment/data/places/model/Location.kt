@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.api.model
+package com.adyen.android.assignment.data.places.model
 
 import kotlinx.serialization.Serializable
 

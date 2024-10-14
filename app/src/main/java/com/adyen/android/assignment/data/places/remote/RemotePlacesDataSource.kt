@@ -1,8 +1,8 @@
 package com.adyen.android.assignment.data.places.remote
 
 import android.location.Location
-import com.adyen.android.assignment.api.PlacesService
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.api.places.PlacesService
+import com.adyen.android.assignment.data.places.model.Place
 import javax.inject.Inject
 
 class RemotePlacesDataSource @Inject constructor(private val placesService: PlacesService) {

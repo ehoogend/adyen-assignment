@@ -31,7 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.ui.theme.AppTheme
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.PermissionState

@@ -1,7 +1,7 @@
-package com.adyen.android.assignment.data.repository
+package com.adyen.android.assignment.data.places
 
 import android.location.Location
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.data.places.remote.RemotePlacesDataSource
 import javax.inject.Inject
 

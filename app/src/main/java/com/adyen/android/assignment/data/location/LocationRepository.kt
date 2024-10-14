@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.data.repository
+package com.adyen.android.assignment.data.location
 
 import android.location.Location
 import androidx.annotation.RequiresPermission

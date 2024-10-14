@@ -34,7 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.data.places.model.Place
 import com.adyen.android.assignment.ui.features.nearbyPlaces.component.CategoriesBlock
 import com.adyen.android.assignment.ui.features.nearbyPlaces.component.PlaceInfoRow
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.component.AddressText
