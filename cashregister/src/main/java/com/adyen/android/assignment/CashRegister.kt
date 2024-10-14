@@ -23,7 +23,10 @@ class CashRegister(private val change: Change) {
         return when {
             price < 0 -> throw TransactionException("Price cannot be negative")
             price > amountPaid.total -> throw TransactionException("Insufficient amount paid")
-            change.total < amountPaid.total - price -> throw TransactionException("Insufficient change available")
+            change.total + amountPaid.total < amountPaid.total - price -> throw TransactionException(
+                "Insufficient change available"
+            )
+
             price == amountPaid.total -> {
                 amountPaid.getElements().forEach {
                     change.add(it, amountPaid.getCount(it))
