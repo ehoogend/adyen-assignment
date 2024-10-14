@@ -30,7 +30,7 @@ class Change {
 
     /**
      * Creates a new [Change] object that contains this object's elements as well as the provided [change] parameter's elements.
-     * @param change The [Change] object to add to this object.
+     * @param otherChange The [Change] object to add to this object.
      */
     operator fun plus(otherChange: Change): Change {
         val newChange = Change.none()

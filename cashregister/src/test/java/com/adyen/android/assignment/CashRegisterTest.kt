@@ -3,7 +3,6 @@ package com.adyen.android.assignment
 import com.adyen.android.assignment.money.Bill
 import com.adyen.android.assignment.money.Change
 import com.adyen.android.assignment.money.Coin
-import org.junit.Assert.fail
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -215,6 +214,40 @@ class CashRegisterTest {
 
         val expectedChange = Change().add(Bill.ONE_HUNDRED_EURO, 1)
 
+        assertEquals(
+            expectedChange,
+            cashRegister.performTransaction(price, amountPaid)
+        )
+    }
+
+    @Test
+    fun `performTransaction large amount of change`() {
+        // Check if performTransaction handles large amounts of change well
+        val cashRegister = CashRegister(
+            Change().apply {
+                Bill.entries.forEach { add(it, 99999999) }
+                Coin.entries.forEach { add(it, 99999999) }
+            }
+        )
+        val price = 400_000_00L
+        val amountPaid = Change().apply {
+            Bill.entries.forEach { add(it, 99999999) }
+            Coin.entries.forEach { add(it, 99999999) }
+        }
+
+        val expectedChange = Change().apply {
+            add(Bill.FIVE_HUNDRED_EURO, 49451)
+            add(Bill.TWO_HUNDRED_EURO, 1)
+            add(Bill.FIFTY_EURO, 1)
+            add(Bill.FIVE_EURO, 1)
+            add(Coin.ONE_EURO, 1)
+            add(Coin.FIFTY_CENT, 1)
+            add(Coin.TWENTY_CENT, 1)
+            add(Coin.TEN_CENT, 1)
+            add(Coin.FIVE_CENT, 1)
+            add(Coin.TWO_CENT, 1)
+            add(Coin.ONE_CENT, 1)
+        }
         assertEquals(
             expectedChange,
             cashRegister.performTransaction(price, amountPaid)
