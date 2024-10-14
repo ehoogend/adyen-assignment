@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.data.repository
+package com.adyen.android.assignment.data.places
 
 import android.location.Location
 import com.adyen.android.assignment.api.model.Place

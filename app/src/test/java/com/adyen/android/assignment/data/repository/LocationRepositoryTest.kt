@@ -2,6 +2,7 @@ package com.adyen.android.assignment.data.repository
 
 import android.location.Location
 import app.cash.turbine.test
+import com.adyen.android.assignment.data.location.LocationRepository
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
