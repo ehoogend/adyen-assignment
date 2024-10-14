@@ -1,6 +1,7 @@
 package com.adyen.android.assignment
 
 import com.adyen.android.assignment.money.Change
+import com.adyen.android.assignment.money.MonetaryElement
 import kotlin.math.min
 
 /**
@@ -23,7 +24,10 @@ class CashRegister(private val change: Change) {
         return when {
             price < 0 -> throw TransactionException("Price cannot be negative")
             price > amountPaid.total -> throw TransactionException("Insufficient amount paid")
-            change.total < amountPaid.total - price -> throw TransactionException("Insufficient change available")
+            change.total + amountPaid.total < amountPaid.total - price -> throw TransactionException(
+                "Insufficient change available"
+            )
+
             price == amountPaid.total -> {
                 amountPaid.getElements().forEach {
                     change.add(it, amountPaid.getCount(it))
@@ -60,9 +64,11 @@ class CashRegister(private val change: Change) {
             .sortedByDescending { it.minorValue }
             .forEach { element ->
                 if (remainingChangeToReturn >= element.minorValue) {
-                    val numElements = min(
+                    val numElements = calculateNumElementsToTake(
+                        element,
                         availableChange.getCount(element).toLong(),
-                        (remainingChangeToReturn / element.minorValue)
+                        remainingChangeToReturn,
+                        availableChange.getElements().minBy { it.minorValue }
                     )
                     if (numElements > 0) {
                         changeToReturn.add(element, numElements.toInt())
@@ -75,6 +81,30 @@ class CashRegister(private val change: Change) {
             throw TransactionException("Insufficient correct denominations of change available. Short by: $remainingChangeToReturn")
         }
         return changeToReturn
+    }
+
+    private fun calculateNumElementsToTake(
+        element: MonetaryElement,
+        numElementsAvailable: Long,
+        remainingChangeToReturn: Long,
+        smallestElementAvailable: MonetaryElement
+    ): Long {
+        val maxElementsToTake = remainingChangeToReturn / element.minorValue
+        var numElements = min(numElementsAvailable, maxElementsToTake)
+        fun numElementsValue(): Long = element.minorValue * numElements
+
+        // Check if remaining changeToReturn is smaller than the smallest element still available after taking numElements
+        // This ensures that, if adding the current number of elements blocks completing the change with smaller denominations,
+        // an attempt is made to complete the change with smaller denominations, not taking into account the current MonetaryElement.
+        while ( // Reduce numElements if:
+            numElements > 0 && // Greater than zero
+            remainingChangeToReturn > numElementsValue() && // Remaining change to return is greater than the value of the elements
+            remainingChangeToReturn - numElementsValue() < smallestElementAvailable.minorValue // Remaining change after adding current element is smaller than the smallest element available
+        ) {
+            // If so, remove 1 element from selection and attempt to get Change with remaining elements.
+            numElements--
+        }
+        return numElements
     }
 
     class TransactionException(message: String, cause: Throwable? = null) :
