@@ -278,7 +278,7 @@ class CashRegisterTest {
 
         val paidChange = Change().add(Bill.TEN_EURO, 2)
 
-        // Paid 10, costs 4, return 6
+        // Paid 20, costs 4, return 16
         val returnedChange = cashRegister.performTransaction(4_00L, paidChange)
 
         assert(returnedChange.total == 16_00L)
@@ -292,10 +292,12 @@ class CashRegisterTest {
 
         val paidChange = Change().add(Bill.FIVE_HUNDRED_EURO, 4)
 
-        // Paid 10, costs 4, return 6
+        // Paid 2000, costs 1400, return 600
         val returnedChange = cashRegister.performTransaction(1400_00L, paidChange)
 
-        assert(returnedChange.total == 600_00L)
+        assertEquals(600_00L, returnedChange.total)
+        assertEquals(setOf(Bill.TWO_HUNDRED_EURO), returnedChange.getElements())
+        assertEquals(3, returnedChange.getCount(Bill.TWO_HUNDRED_EURO))
     }
 
     @Test
