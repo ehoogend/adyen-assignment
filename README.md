@@ -33,24 +33,34 @@ The project consists of two main modules:
 
 ### 1. App Module
 
-This module contains the core functionality of the application, including:
+This module contains the core functionality of the application, including the user interface, business logic, and data layer. It is structured using a layered architecture approach.
 
-- **`api`:** Contains classes for interacting with the Foursquare API, including data models for places and API responses.
-    - **`Place`:** The data class representing a place of interest.
-- **`repository`:** Contains classes responsible for fetching and caching data from the Foursquare API.
-    - **`PlacesRepository`:** The repository responsible for fetching and caching place data from the Foursquare API.
-- **`ui`:** Contains the user interface components of the application, including screens for displaying nearby places and place details.
-    - **`MainNavHost`:** This composable function sets up the navigation graph for the application, defining the routes and screens.
-- **`ui/features/nearbyPlaces`:** Contains the UI logic for the nearby places screen.
-    - **`NearbyPlacesScreen`:** This composable function displays the list of nearby places, handles loading states, and error handling.
-    - **`NearbyPlacesViewModel`:** The ViewModel for the nearby places screen, responsible for fetching and managing place data.
-- **`ui/features/nearbyPlaces/detail`:** Contains the UI logic for the place detail screen.
-    - **`NearbyPlaceDetailScreen`:** This composable function displays the detailed information about a selected place.
-- **`di`:** Contains classes for dependency injection using Hilt.
-- **`data`:** Contains the data layer of the application, including data sources, repositories, and data models. This module is responsible for providing data to other parts of the application.
-    - **`LocationRepository`:** This class is responsible for obtaining the user's current location.
-    - **`RemotePlacesDataSource`:** This class fetches place data from the Foursquare API.
-      **`MainActivity`:** The main entry point of the application.
+- **`api`:** Handles interaction with the Foursquare API.
+  - **`Place`:** Data class representing a place of interest.
+  - **`PlacesResponse`:** Data class for API responses.
+  - **`PlacesService`:** Interface or class for making API calls.
+- **`data`:** Contains the data layer, organized by feature.
+  - **`places`:** Handles data related to places.
+    - **`PlacesRepository`:** Fetches and caches place data.
+    - **`PlacesRemoteDataSource`:** Fetches place data from the Foursquare API.
+  - **`location`:**
+    - **`LocationRepository`:** Obtains the user's current location.
+  - **`remote`:** Handles communication with remote data sources.
+    - **`RemotePlacesDataSource`:** Fetches place data from the Foursquare API.
+- **`di`:** Contains Dependency Injection Modules (using Hilt).
+- **`ui`:** Contains the user interface components, built using Jetpack Compose.
+  - **`MainActivity`:** The main entry point of the application.
+  - **`MainNavHost`:** Sets up the navigation graph for the application, defining routes and screens.
+  - **`features`:** Organizes UI features into separate packages.
+    - **`nearbyPlaces`:** UI logic for the nearby places screen.
+      - **`NearbyPlacesScreen`:** Screen composable displaying the list of nearby places.
+      - **`NearbyPlacesViewModel`:** ViewModel for the nearby places screen, manages place data.
+    - **`nearbyPlaces/detail`:** UI logic for the place detail screen.
+      - **`NearbyPlaceDetailScreen`:** Screen composable displaying detailed information about a selected place.
+  - **`theme`:** Contains theme definitions and styles for the application.
+    - **`Theme`:** Provides composable functions to apply and customize the app's theme.
+    - **`Color`:** Defines color palettes and resources.
+    - **`Typography`:** Defines font styles and text sizes.
 
 ## Other considerations
 
