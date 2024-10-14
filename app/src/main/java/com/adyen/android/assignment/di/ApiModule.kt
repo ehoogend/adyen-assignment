@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.di
 
 import com.adyen.android.assignment.BuildConfig
-import com.adyen.android.assignment.api.PlacesService
+import com.adyen.android.assignment.api.places.PlacesService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

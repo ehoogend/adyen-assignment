@@ -2,7 +2,7 @@ package com.adyen.android.assignment.ui.features.nearbyPlaces
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.api.places.model.Place
 import com.adyen.android.assignment.data.location.LocationRepository
 import com.adyen.android.assignment.data.places.PlacesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

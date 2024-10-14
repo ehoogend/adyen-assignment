@@ -36,9 +36,10 @@ The project consists of two main modules:
 This module contains the core functionality of the application, including the user interface, business logic, and data layer. It is structured using a layered architecture approach.
 
 - **`api`:** Handles interaction with the Foursquare API.
-  - **`Place`:** Data class representing a place of interest.
-  - **`PlacesResponse`:** Data class for API responses.
-  - **`PlacesService`:** Interface or class for making API calls.
+  - **`places`:** Handles interactions with the Foursquare API for place-related data.
+    - **`Place`:** Data class representing a place of interest.
+    - **`PlacesResponse`:** Data class for API responses.
+    - **`PlacesService`:** Interface or class for making API calls.
 - **`data`:** Contains the data layer, organized by feature.
   - **`places`:** Handles data related to places.
     - **`PlacesRepository`:** Fetches and caches place data.

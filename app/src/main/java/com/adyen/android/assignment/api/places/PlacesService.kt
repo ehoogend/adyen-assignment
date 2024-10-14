@@ -1,7 +1,7 @@
-package com.adyen.android.assignment.api
+package com.adyen.android.assignment.api.places
 
 import com.adyen.android.assignment.BuildConfig
-import com.adyen.android.assignment.api.model.PlacesResponse
+import com.adyen.android.assignment.api.places.model.PlacesResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

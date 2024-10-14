@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.adyen.android.assignment.api.model.Place
+import com.adyen.android.assignment.api.places.model.Place
 import com.adyen.android.assignment.ui.features.nearbyPlaces.NearbyPlacesRoute
 import com.adyen.android.assignment.ui.features.nearbyPlaces.detail.NearbyPlaceDetailRoute
 import kotlinx.serialization.Serializable
